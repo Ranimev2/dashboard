@@ -1,5 +1,23 @@
-const apiKey = 'YOUR_API_KEY';
-const apiUrl = 'https://api.mathjs.org/v1/questions';
+const soalData = [
+  {
+    question: "2 + 2 =?",
+    options: ["3", "4", "5", "6"],
+    correct: 4
+  },
+  {
+    question: "5 - 1 =?",
+    options: ["3", "4", "5", "6"],
+    correct: 4
+  },
+  {
+    question: "7 x 3 =?",
+    options: ["20", "21", "22", "23"],
+    correct: 21
+  },
+  // add more questions here
+];
+
+let currentSoal = 0;
 
 const soalContainer = document.getElementById('soal-container');
 const opsiList = document.getElementById('opsi');
@@ -7,25 +25,8 @@ const jawabBtn = document.getElementById('jawab-btn');
 const hasilText = document.getElementById('hasil');
 const nextBtn = document.getElementById('next-btn');
 
-let currentSoal = 0;
-let soalData = [];
-
-function getSoal() {
-  fetch(`${apiUrl}?apiKey=${apiKey}&category=math`)
- .then(response => response.json())
- .then(data => {
-      console.log('API Response:', data);
-      soalData = data;
-      tampilkanSoal();
-    })
- .catch(error => {
-      console.error('Error fetching API:', error);
-    });
-}
-
 function tampilkanSoal() {
   const soal = soalData[currentSoal];
-  console.log('Current Soal:', soal);
   soalContainer.innerHTML = soal.question;
   opsiList.innerHTML = '';
   soal.options.forEach((opsi, index) => {
@@ -41,7 +42,7 @@ function jawabSoal() {
   if (jawabanUser === jawabanBenar) {
     hasilText.textContent = 'Benar!';
   } else {
-    hasilText.textContent = 'Salah. Jawaban yang benar adalah 'awabanBenar;
+    hasilText.textContent = 'Salah. Jawaban yang benar adalah ' jawabanBenar;
   }
 }
 
@@ -51,9 +52,8 @@ function nextSoal() {
     currentSoal = 0;
   }
   tampilkanSoal();
+  hasilText.textContent = '';
 }
-
-getSoal();
 
 jawabBtn.addEventListener('click', jawabSoal);
 nextBtn.addEventListener('click', nextSoal);
@@ -66,4 +66,6 @@ document.addEventListener('DOMContentLoaded', function() {
   loadingScreen.style.display = 'none';
   logoContainer.style.display = 'block';
   quizContainer.style.display = 'block';
+
+  tampilkanSoal();
 });
