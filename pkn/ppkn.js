@@ -8,7 +8,7 @@ const hasilText = document.getElementById('hasil');
 const nextBtn = document.getElementById('next-btn');
 
 const apiKey = 'KrWerCEDwTuhXWNH2naDZDuIYTpUNOGJmRTovvH6';
-const apiUrl = 'https://api.quizapi.io/v1/questions';
+const apiUrl = 'https://quizapi.io/api/v1/questions';
 
 let currentSoal = 0;
 let soalData = [];
