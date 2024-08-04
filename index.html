@@ -5,18 +5,31 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Selection Screen -->
-  <div id="selection-screen">
-    <h1>Tebak Angka</h1>
-    <p>Pilih mode permainan:</p>
-    <button id="2v2">2v2</button>
-    <button id="player-vs-computer">Player vs Computer</button>
-    <button id="player-vs-player-premium">Player vs Player Premium</button>
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <div id="loading-bar"></div>
+    <img src="logo.png" id="loading-logo" alt="Logo">
+    <span id="loading-nickname">Shanachan</span>
   </div>
 
   <!-- Game Content -->
   <div id="game-content">
-    <!-- same as before -->
+    <div id="score-board">
+      <span id="score">Skor: 0</span>
+      <span id="rank">Peringkat: -</span>
+    </div>
+    <h1 id="game-title">Tebak Angka</h1>
+    <p id="game-description">Angka yang dihasilkan secara acak adalah antara 1-100.</p>
+    <input type="number" id="tebakan" placeholder="Masukkan tebakanmu">
+    <button id="submit">Tebak!</button>
+    <div id="hasil"></div>
+    <div id="jawaban"></div>
+
+    <div id="about">
+      <img src="logo.png" id="logo" alt="Logo">
+      <span id="nickname">Tebak Angka Master <span style="color: #337ab7;">&#10004;</span></span>
+      <p id="deskripsi">Game Tebak Angka adalah game yang menguji kemampuanmu dalam menebak angka yang dihasilkan secara acak. Cobalah untuk menebak angka yang benar dan dapatkan skor tertinggi!</p>
+    </div>
   </div>
 
   <script src="script.js"></script>
