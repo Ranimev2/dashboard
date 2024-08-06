@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dokumentasi</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+		}
+		
+		.container {
+			width: 80%;
+			margin: 40px auto;
+			padding: 20px;
+			background-color: #f9f9f9;
+			border: 1px solid #ddd;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+		
+		.header {
+			background-color: #333;
+			color: #fff;
+			padding: 10px;
+			text-align: center;
+		}
+		
+		.content {
+			padding: 20px;
+		}
+		
+		.section {
+			margin-bottom: 20px;
+		}
+		
+		.section h2 {
+			margin-top: 0;
+		}
+		
+		.code {
+			background-color: #f0f0f0;
+			padding: 10px;
+			border: 1px solid #ddd;
+			font-family: monospace;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="header">
+			<h1>rest api otakudesu</h1>
+		</div>
+		<div class="content">
+			<div class="section">
+				<h2>HOME</h2>
+				<p>https://otakudesuv2.vercel.app/api/otakudesu/home/.</p>
+			</div>
+			<div class="section">
+				<h2>oingoing anime</h2>
+				<p>https://otakudesuv2.vercel.app/api/otakudesu/ongoing:</p>
+				<ol>
+					<li>https://otakudesuv2.vercel.app/api/otakudesu/ongoing/?next=page-2.</li>
+					<li>Jalankan file instalasi dan ikuti instruksi yang muncul.</li>
+					<li>minimal ikuti sosial media kami di myranime.my.id.</li>
+				</ol>
+			</div>
+			<div class="section">
+				<h2>complete anime</h2>
+				<p>https://otakudesuv2.vercel.app/api/otakudesu/complete</p>
+				<pre class="code">
+				<p>https://otakudesuv2.vercel.app/api/otakudesu/complete/?next=page-2</p>
+				</pre>
+			</div>
+			<div class="section">
+        <h2>genre get all anime</h2>
+				<p>https://otakudesuv2.vercel.app/api/otakudesu/genres</p>
+				<pre class="code">
+				<p>cuman itu aja wkwk<p>
+				</pre>
+			</div>
+			<div class="section">
+          <h2>search genre anime</h2>
+				<p>https://otakudesuv2.vercel.app/api/otakudesu/genres</p>
+				<pre class="code">
+				<p>https://otakudesuv2.vercel.app/api/otakudesu/genres/genres/<genre>/<p>
+				</pre>
+			</div>
+			<div class="section">
+         <h2>seach genre by append page</h2>
+				<p>https://otakudesuv2.vercel.app/api/otakudesu/genres</p>
+				<pre class="code">
+				<p>https://otakudesuv2.vercel.app/api/otakudesu/genres/genres/<genre>/<page><p>
+				</pre>
+			</div>
+      <div class="section">
+        <h2>get info of anime</h2>
+				<p>https://otakudesuv2.vercel.app/api/otakudesu/info</p>
+				<pre class="code">
+				<p>https://otakudesuv2.vercel.app/api/otakudesu/info/?data=berserk-gluttony-sub-indo<p>
+				</pre>
+			</div>
+      <div class="section">
+        <h2>get stream link</h2>
+				<p>https://otakudesuv2.vercel.app/api/otakudesu/view</p>
+				<pre class="code">
+				<p>https://otakudesuv2.vercel.app/api/otakudesu/view/?data=woar-episode-9-sub-indo<p>
+				</pre>
+			</div>
+      <div class="section">
+				<h2>search anime</h2>
+				<p>https://otakudesuv2.vercel.app/api/otakudesu/search</p>
+				<ul>
+					<li>https://otakudesuv2.vercel.app/api/otakudesu/search/?keyword=kage+no+jitsu.</li>
+					<li>Periksa apakah Anda telah memasukkan data yang benar.</li>
+					<li>Hubungi tim dukungan kami jika masalah persist.</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
