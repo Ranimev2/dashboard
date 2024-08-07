@@ -1,32 +1,17 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHANA AI</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        #chat-container {
-            width: 80%;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-    </style>
+    <title>OpenAI Integration</title>
+    <link rel="stylesheet" href="./shanaai/styles.css">
 </head>
 <body>
-    <div id="chat-container">
-        <h2>Chat with ChatGPT</h2>
-        <input id="user-input" type="text" placeholder="Type a message...">
-        <button id="send-btn">Send</button>
-        <div id="chat-log"></div>
-    </div>
+    <h1>OpenAI API Integration</h1>
+    <textarea id="inputText" placeholder="Type your query here..."></textarea>
+    <button id="submitButton">Submit</button>
+    <div id="responseContainer"></div>
 
-    <script src="/shanaai/script.js"></script>
+    <script src="./shanaai/script.js"></script>
 </body>
 </html>
