@@ -87,53 +87,28 @@
     <div class="header">
       <h1>WhatsAppChatGPT</h1>
     </div>
-    <div class="chat-log">
+    <div class="chat-log" id="chat-log">
       <!-- chat log will be displayed here -->
     </div>
     <input type="text" id="input-field" class="input-field" placeholder="Type a message...">
     <button id="send-button" class="send-button">Send</button>
-  </div>
 
-  <script>
-    // JavaScript code
-    import express from 'express';
-    import { Client } from 'whatsapp-web.js';
-    import { ChatGPTAPI } from 'chatgpt';
+    <script>
+      // JavaScript code
+      const express = require('express');
+      const { Client } = require('whatsapp-web.js');
+      const { ChatGPTAPI } = require('chatgpt');
 
-    const app = express();
+      const app = express();
 
-    const clientWP = new Client({
-      puppeteer: { headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox', '--unhandled-rejections=strict'] },
-      authStrategy: new LocalAuth({
-        clientId: 'WhatsAppChatGPT',
-        dataPath: `./authFolder/WhatsAppChatGPT`,
-      }),
-    });
+      const clientWP = new Client({
+        puppeteer: { headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox', '--unhandled-rejections=strict'] },
+        authStrategy: new LocalAuth({
+          clientId: 'WhatsAppChatGPT',
+          dataPath: `./authFolder/WhatsAppChatGPT`,
+        }),
+      });
 
-    clientWP.on('loading_screen', (percent, message) => {
-      console.log('LOADING SCREEN', percent, message);
-    });
-
-    clientWP.on("qr", (qr) => {
-      console.log("qr> ", qr);
-      qrcode.generate(qr, { small: true });
-    });
-
-    clientWP.on("authenticated", () => {
-      console.log("Auth Completed!");
-    });
-
-    clientWP.on("ready", () => {
-      console.log("WhatsAppChatGPT is ready!");
-    });
-
-    clientWP.on('auth_failure', msg => {
-      console.error('Auth FAILURE', msg);
-    });
-
-    clientWP.initialize();
-
-    (async () => {
       const api = new ChatGPTAPI({
         apiKey: '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',
       });
@@ -141,22 +116,42 @@
       clientWP.on('message', async msg => {
         console.log('MESSAGE RECEIVED', msg.body);
 
-        if (msg.body.startsWith('!chatgpt ')) {
+        if (msg.body.startsWith('Your verification code is: ')) {
+          const verificationCode = msg.body.split(' ')[4];
+          console.log('VERIFICATION CODE', verificationCode);
+
+          // Authenticate with WhatsApp using the verification code
+          clientWP.sendMessage(verificationCode, 'verify');
+        } else if (msg.body.startsWith('!chatgpt ')) {
           const chat = await msg.getChat();
           chat.sendStateTyping();
           let searchGPT = msg.body.slice(9);
           const res = await api.sendMessage(searchGPT);
           chat.clearState();
           msg.reply(res.text);
+        } else {
+          // Respond to user message
+          const response = await api.sendMessage(msg.body);
+          msg.reply(response.text);
         }
       });
-    })();
 
-    app.listen(process.env.PORT, () => {
-      console.log("Server Running Live on Port : " + process.env.PORT);
-    });
+      clientWP.on('qr', (qr) => {
+        console.log('QR CODE', qr);
+        // Display the QR code to the user
+        console.log('Scan the QR code to authenticate with WhatsApp:');
+        console.log(qr);
+      });
 
-    // Add event listener to send button
-    document.getElementById('send-button').addEventListener('click', () => {
-      const inputField = document.getElementById('input-field');
-      const message =
+      clientWP.on('authenticated', () => {
+        console.log('AUTHENTICATED');
+      });
+
+      clientWP.on('ready', () => {
+        console.log('READY');
+      });
+
+      clientWP.initialize();
+
+      app.listen(process.env.PORT, () => {
+        console.log('eror')
