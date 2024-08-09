@@ -1,80 +1,162 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kirim Kode Verifikasi</title>
+  <title>WhatsAppChatGPT</title>
   <style>
+    /* CSS styles */
     body {
       font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
     }
-    #form {
-      width: 50%;
+
+    .container {
+      max-width: 800px;
       margin: 40px auto;
       padding: 20px;
-      border: 1px solid #ccc;
+      background-color: #fff;
+      border: 1px solid #ddd;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
-    #phoneNumber {
-      width: 100%;
-      height: 40px;
-      margin-bottom: 20px;
-      padding: 10px;
-      border: 1px solid #ccc;
-    }
-    #sendButton {
-      width: 100%;
-      height: 40px;
-      background-color: #4CAF50;
+
+    .header {
+      background-color: #333;
       color: #fff;
       padding: 10px;
+      text-align: center;
+    }
+
+    .header h1 {
+      margin: 0;
+    }
+
+    .chat-log {
+      padding: 20px;
+    }
+
+    .message {
+      margin-bottom: 20px;
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .message:last-child {
+      border-bottom: none;
+    }
+
+    .message .username {
+      font-weight: bold;
+      color: #333;
+    }
+
+    .message .text {
+      color: #666;
+    }
+
+    .input-field {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      width: 100%;
+    }
+
+    .input-field:focus {
+      border-color: #aaa;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .send-button {
+      background-color: #4CAF50;
+      color: #fff;
+      padding: 10px 20px;
       border: none;
       border-radius: 10px;
       cursor: pointer;
     }
-    #result {
-      margin-top: 20px;
-      padding: 20px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+    .send-button:hover {
+      background-color: #3e8e41;
     }
   </style>
 </head>
 <body>
-  <h1>Kirim Kode Verifikasi</h1>
-  <form id="form">
-    <label for="phoneNumber">Nomor Telepon:</label>
-    <input type="text" id="phoneNumber" name="phoneNumber">
-    <button id="sendButton">Kirim Kode Verifikasi</button>
-  </form>
-  <div id="result"></div>
+  <div class="container">
+    <div class="header">
+      <h1>WhatsAppChatGPT</h1>
+    </div>
+    <div class="chat-log">
+      <!-- chat log will be displayed here -->
+    </div>
+    <input type="text" id="input-field" class="input-field" placeholder="Type a message...">
+    <button id="send-button" class="send-button">Send</button>
+  </div>
 
   <script>
-    const form = document.getElementById('form');
-    const phoneNumberInput = document.getElementById('phoneNumber');
-    const sendButton = document.getElementById('sendButton');
-    const resultDiv = document.getElementById('result');
+    // JavaScript code
+    import express from 'express';
+    import { Client } from 'whatsapp-web.js';
+    import { ChatGPTAPI } from 'chatgpt';
 
-    sendButton.addEventListener('click', (e) => {
-      e.preventDefault();
-      const phoneNumber = phoneNumberInput.value;
-      fetch('/send-verification-code', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ phoneNumber })
-      })
-      .then((response) => response.json())
-      .then((data) => {
-        resultDiv.innerHTML = `Kode verifikasi telah dikirim ke ${phoneNumber}`;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    const app = express();
+
+    const clientWP = new Client({
+      puppeteer: { headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox', '--unhandled-rejections=strict'] },
+      authStrategy: new LocalAuth({
+        clientId: 'WhatsAppChatGPT',
+        dataPath: `./authFolder/WhatsAppChatGPT`,
+      }),
     });
-  </script>
-</body>
-</html>
+
+    clientWP.on('loading_screen', (percent, message) => {
+      console.log('LOADING SCREEN', percent, message);
+    });
+
+    clientWP.on("qr", (qr) => {
+      console.log("qr> ", qr);
+      qrcode.generate(qr, { small: true });
+    });
+
+    clientWP.on("authenticated", () => {
+      console.log("Auth Completed!");
+    });
+
+    clientWP.on("ready", () => {
+      console.log("WhatsAppChatGPT is ready!");
+    });
+
+    clientWP.on('auth_failure', msg => {
+      console.error('Auth FAILURE', msg);
+    });
+
+    clientWP.initialize();
+
+    (async () => {
+      const api = new ChatGPTAPI({
+        apiKey: 'YOUR_OPENAI_API_KEY',
+      });
+
+      clientWP.on('message', async msg => {
+        console.log('MESSAGE RECEIVED', msg.body);
+
+        if (msg.body.startsWith('!chatgpt ')) {
+          const chat = await msg.getChat();
+          chat.sendStateTyping();
+          let searchGPT = msg.body.slice(9);
+          const res = await api.sendMessage(searchGPT);
+          chat.clearState();
+          msg.reply(res.text);
+        }
+      });
+    })();
+
+    app.listen(process.env.PORT, () => {
+      console.log("Server Running Live on Port : " + process.env.PORT);
+    });
+
+    // Add event listener to send button
+    document.getElementById('send-button').addEventListener('click', () => {
+      const inputField = document.getElementById('input-field');
+      const message =
