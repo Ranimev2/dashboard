@@ -77,6 +77,25 @@
             color: #fff;
             text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
+        .billing-list ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .billing-list li {
+            padding: 10px;
+            border-bottom: 1px solid #333;
+        }
+
+        .billing-list li:last-child {
+            border-bottom: none;
+        }
+
+        .billing-list span {
+            font-weight: bold;
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body>
@@ -99,6 +118,11 @@
                 <a href="./dokumentation/restapi.html" target="_blank">Anime API</a>
             </p>
         </div>
+        <h2>Billing List</h2>
+                <ul>
+                    <li><span>Name:</span> Admin <span>Number:</span> 085974238938</li>
+                    <li><span>Name:</span> Jane Doe <span>Number:</span> 085987654321</li>
+                <ul>
     </div>
 
     <script>
