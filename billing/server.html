@@ -1,17 +1,92 @@
-<div class="billing-server-theme">
-  <div class="container">
-    <h1 class="text-center premium-billing-server">Premium Billing Server</h1>
-    <p class="text-center">Price: 20k for 20 days</p>
-    <p class="text-center">Payment method: Dana to 085974238938</p>
-    <button class="premium-button text-center">Subscribe Now</button>
-    <p class="text-center">
-      <a href="https://discord.com/invite/Ps2Y72Bg" target="_blank">Join our Discord server</a>
-      <span> | </span>
-      <a href="https://ww.takamiyanime.shop/auth/login" target="_blank">Panel Login</a>
-      <span> | </span>
-      <a href="https://ranimev3.site" target="_blank">Anime Page</a>
-      <span> | </span>
-      <a href="./dokumentation/restapi.html" target="_blank">Anime API</a>
-    </p>
-  </div>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Billing Server</title>
+    <style>
+        .billing-server-theme {
+            background-image: url('https://telegra.ph/file/bb210ef5a9e40a5677ae6.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 50px;
+            border: 1px solid #333;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .container {
+            max-width: 300px;
+            margin: 40px auto;
+            text-align: center;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .premium-billing-server {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .premium-button {
+            background-color: #8BC34A;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .premium-button:hover {
+            background-color: #689F38;
+        }
+
+        .link-group {
+            display: inline-block;
+            margin: 10px;
+        }
+
+        .link-group a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .link-group a:hover {
+            color: #ccc;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="billing-server-theme">
+        <div class="container">
+            <h1 class="text-center premium-billing-server">Premium Billing Server</h1>
+            <p class="text-center">Price: 20k for 20 days</p>
+            <p class="text-center">Payment method: Dana to 085974238938</p>
+            <button class="premium-button text-center">Subscribe Now</button>
+            <p class="text-center">
+                <a href="https://discord.com/invite/Ps2Y72Bg" target="_blank">Discord server</a>
+                <span> | </span>
+                <a href="https://ww.takamiyanime.shop" target="_blank">Panel Login</a>
+                <span> | </span>
+                <a href="https://ranimev3.site" target="_blank">Anime Page</a>
+                <span> | </span>
+                <a href="./dokumentation/restapi.html" target="_blank">Anime API</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Add event listener to the button
+        document.querySelector('.premium-button').addEventListener('click', function() {
+            alert('You have successfully subscribed to the premium billing server!');
+        });
+    </script>
+</body>
+</html>
